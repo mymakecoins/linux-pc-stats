@@ -1,0 +1,10 @@
+#!/bin/sh
+# Comando para escolher/confirmar o ambiente de desktop e ver instruções para exibir na barra do sistema.
+export LINUX_STATS_CMD="/usr/bin/linux-stats-statusbar"
+SCRIPT="/usr/share/linux-stats/scripts/detect-desktop.sh"
+if [ -x "$SCRIPT" ]; then
+    exec "$SCRIPT" --instructions
+else
+    echo "Script de detecção não encontrado. Ver: /usr/share/doc/linux-stats/INTEGRACAO_BARRA_STATUS.md" >&2
+    exit 1
+fi

@@ -1,0 +1,18 @@
+#!/bin/sh
+# Wrapper instalado em /usr/bin/linux-stats-statusbar pelo pacote .deb.
+# Cria config na primeira execução e avisa sobre a barra do sistema.
+
+export PYTHONPATH="/usr/share/linux-stats/project:/usr/share/linux-stats/lib"
+
+CONFIG_DIR="${HOME}/.config/linux-stats"
+CONFIG_FILE="${CONFIG_DIR}/config.json"
+EXAMPLE="/usr/share/linux-stats/project/config.json.example"
+
+if [ -n "$HOME" ] && [ ! -f "$CONFIG_FILE" ] && [ -f "$EXAMPLE" ]; then
+    mkdir -p "$CONFIG_DIR"
+    cp "$EXAMPLE" "$CONFIG_FILE"
+    echo "linux-stats: Config criado em $CONFIG_FILE — edite com seu CEP, weather_api_key e módulos." >&2
+    echo "linux-stats: Para ver na barra do sistema: adicione o módulo à Polybar/Waybar (ver /usr/share/doc/linux-stats/INTEGRACAO_BARRA_STATUS.md) e REINICIE a barra." >&2
+fi
+
+exec python3 -m src "$@"

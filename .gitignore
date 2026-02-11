@@ -1,6 +1,21 @@
+# IDE / editor
+.cursor/
+
+# Debian package build
+debian/linux-stats/
+debian/.debhelper/
+debian/*-stamp
+debian/files
+debian/*.substvars
+
+# Python
 __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
 .venv/
+venv/
+
+# Config local (não versionar)
 config.json
+project/config.json

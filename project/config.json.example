@@ -1,0 +1,15 @@
+{
+  "modules": {
+    "cpu": true,
+    "ram": true,
+    "battery": true,
+    "disk": true,
+    "gpu": true,
+    "weather": true
+  },
+  "interval_seconds": 60,
+  "disk_path": "/",
+  "cep": "",
+  "weather_api_key": "",
+  "weather_interval_seconds": 3600
+}

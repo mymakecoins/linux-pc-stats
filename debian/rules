@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+# Empacotamento Debian para linux-stats.
+# Instala a aplicação em /usr/share/linux-stats e dependências em .../lib;
+# script /usr/bin/linux-stats-statusbar define PYTHONPATH e executa python3 -m src.
+
+export DH_VERBOSE = 1
+export PYTHONPATH :=
+
+DEST = debian/linux-stats
+SHARE = $(DEST)/usr/share/linux-stats
+BIN = $(DEST)/usr/bin
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	rm -rf $(DEST)
+	dh_auto_clean
+
+override_dh_auto_install:
+	install -d $(SHARE) $(SHARE)/lib $(SHARE)/scripts $(BIN)
+	cp -r project $(SHARE)/
+	install -m 755 project/scripts/detect-desktop.sh $(SHARE)/scripts/
+	# Dependências Python em /usr/share/linux-stats/lib (evita conflito com sistema)
+	python3 -m pip install --target=$(SHARE)/lib --break-system-packages -r project/requirements.txt 2>/dev/null || \
+	python3 -m pip install --target=$(SHARE)/lib -r project/requirements.txt
+	# Wrapper em /usr/bin (cria config na 1ª execução e avisa sobre a barra)
+	install -m 755 debian/linux-stats-statusbar.wrapper $(BIN)/linux-stats-statusbar
+	# Comando para detectar ambiente e mostrar instruções (barra do sistema)
+	install -m 755 debian/linux-stats-setup-bar.wrapper $(BIN)/linux-stats-setup-bar
+	# .desktop
+	install -d $(DEST)/usr/share/applications
+	sed 's|Exec=.*|Exec=/usr/bin/linux-stats-statusbar|' project/linux-stats-statusbar.desktop > $(DEST)/usr/share/applications/linux-stats-statusbar.desktop
