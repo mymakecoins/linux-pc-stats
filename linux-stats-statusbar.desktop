@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Linux Stats Status Bar
+Comment=Exibe telemetria do sistema e previsão do tempo na barra de status
+Exec=/path/to/linux-stats/run-statusbar.sh
+Terminal=false
+Hidden=false
+X-GNOME-Autostart-enabled=true
+# Copie este arquivo para ~/.config/autostart/ e edite Exec com o caminho real do run-statusbar.sh
+# Uso típico: integre na Polybar/Waybar (veja docs/INTEGRACAO_BARRA_STATUS.md) em vez de autostart
