@@ -1,21 +1,20 @@
 # IDE / editor
 .cursor/
 
-# Debian package build
-debian/linux-stats/
-debian/.debhelper/
-debian/*-stamp
-debian/files
-debian/*.substvars
+# Ambiente virtual Python
+.venv/
+venv/
 
-# Python
+# Empacotamento e documentação (ignorar pastas inteiras)
+debian/
+docs/
+project/
+
+# Python (caso venha a versionar outras pastas)
 __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
-.venv/
-venv/
 
-# Config local (não versionar)
+# Config local
 config.json
-project/config.json
